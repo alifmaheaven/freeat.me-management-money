@@ -1,0 +1,52 @@
+{
+  "name": "vue-argon-dashboard",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "rm -rf ../backend/public/{js,css,img} && vue-cli-service build --no-clean",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@vee-validate/i18n": "^4.1.20",
+    "@vee-validate/rules": "^4.1.20",
+    "apexcharts": "^3.25.0",
+    "axios": "^0.21.1",
+    "bootstrap": "4.6.0",
+    "bootstrap-vue": "2.15.0",
+    "chart.js": "2.9.4",
+    "core-js": "3.6.5",
+    "element-plus": "1.0.1-beta.24",
+    "google-maps": "4.3.3",
+    "moment": "^2.29.1",
+    "nouislider": "14.6.0",
+    "primeicons": "^4.1.0",
+    "primevue": "^3.3.5",
+    "vee-validate": "^4.2.2",
+    "vue": "3.0.5",
+    "vue-google-signin-button-directive": "^1.0.3",
+    "vue-router": "4.0.1",
+    "vue-sweetalert2": "^4.2.0",
+    "vue-toastification": "1.7.11",
+    "vue3-apexcharts": "^1.2.1",
+    "vue3-google-oauth2": "^1.0.4",
+    "vuex": "^4.0.0",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.5.10",
+    "@vue/cli-plugin-eslint": "4.5.10",
+    "@vue/cli-plugin-router": "4.5.10",
+    "@vue/cli-service": "4.5.10",
+    "@vue/compiler-sfc": "3.0.5",
+    "@vue/eslint-config-prettier": "6.0.0",
+    "babel-eslint": "10.1.0",
+    "babel-plugin-component": "1.1.1",
+    "eslint": "7.17.0",
+    "eslint-plugin-prettier": "3.3.1",
+    "eslint-plugin-vue": "7.4.1",
+    "node-sass": "5.0.0",
+    "prettier": "2.2.1",
+    "sass-loader": "10.1.1"
+  }
+}
