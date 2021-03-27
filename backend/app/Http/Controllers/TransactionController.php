@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\transaction;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -26,8 +26,8 @@ class TransactionController extends Controller
             ->where('transaction.is_active', '=', 1)
             ->leftJoin('type', 'transaction.type_id', '=', 'type.id')
             ->leftJoin('account', 'transaction.account_id', '=', 'account.id')
-            ->orderBy('transaction.date', 'ASC')
-            ->orderBy('transaction.created_at', 'ASC')
+            ->orderBy('transaction.date', 'DESC')
+            ->orderBy('transaction.created_at', 'DESC')
             ->get();
 
         return response()->json(['data' => $transaction, 'message' => 'success get data'], 201);
