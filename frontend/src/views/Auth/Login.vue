@@ -15,7 +15,7 @@
             </a> -->
             <a @click="GooglesignIn()" class="btn btn-neutral btn-icon">
               <span class="btn-inner--icon"
-                ><img src="img/icons/common/google.svg"
+                ><img :src="env+'img/icons/common/google.svg'"
               /></span>
               <span class="btn-inner--text">Google</span>
             </a>
@@ -104,6 +104,8 @@ export default {
   },
   data() {
     return {};
+  },
+  created(){
   },
   methods: {
     onSubmit(values) {
