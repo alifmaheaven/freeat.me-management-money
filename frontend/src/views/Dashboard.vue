@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="row">
-        <div v-for="item in akun" :key="item.id" class="col-xl-4 col-lg-6">
+        <div v-for="item in akun" :key="item.id" class="col-xl-4 col-lg-6 my-1">
           <stats-card
             :title="item.name"
             :type="item.nominal > 0 ? 'gradient-green' : 'gradient-red'"

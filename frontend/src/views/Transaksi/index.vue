@@ -40,7 +40,7 @@
     <Column field="name" header="Name" sortable="true">
       <template #body="row">
         <span>
-          {{ row.data.name }}  <i class="pi pi-info-circle" style="fontSize: 1rem;color: rgb(94 114 228);" v-tooltip.right="'Arus kas internal tidak akan ter record pada dashboard'"></i>
+          {{ row.data.name }} <i v-if="row.data.is_internal" class="pi pi-info-circle" style="fontSize: 1rem;color: rgb(94 114 228);" v-tooltip.right="'Arus kas internal tidak akan ter record pada dashboard'"></i>
         </span>
       </template>
     </Column>
