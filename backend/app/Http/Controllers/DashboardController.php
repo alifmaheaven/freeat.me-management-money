@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
+use App\Models\Account;
+use App\Models\Type;
+
 class DashboardController extends Controller
 {
     public function typeNominalThisMonthOnly()
@@ -81,6 +84,44 @@ class DashboardController extends Controller
             ->groupBy('id', 'name', 'description')
             ->get();
 
+        $this->initialNewUser();
+
         return response()->json(['data' => $type, 'message' => 'success get data'], 201);
+    }
+
+    public function initialNewUser()
+    {
+        $account = DB::table('account')
+            ->where('account.user_id', '=', auth()->user()->id)
+            ->get();
+
+        if (count($account) == 0) {
+            // intial account
+            account::create([
+                'user_id' => auth()->user()->id,
+                'name' => 'Cash',
+                'description' => 'Uang yang kamu pegang sekarang',
+            ]);
+            account::create([
+                'user_id' => auth()->user()->id,
+                'name' => 'Tabungan',
+                'description' => 'Uang yang kamu tabung sekarang',
+            ]);
+
+            // intial account
+            type::create([
+                'user_id' => auth()->user()->id,
+                'name' => 'Pemasukan',
+                'description' => 'Semua pemasukan memakai akun ini',
+                'is_minus' => 0,
+            ]);
+
+            type::create([
+                'user_id' => auth()->user()->id,
+                'name' => 'Pengeluaran',
+                'description' => 'Semua pengeluaran memakai akun ini',
+                'is_minus' => 1
+            ]);
+        }
     }
 }
