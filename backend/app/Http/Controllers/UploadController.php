@@ -48,7 +48,7 @@ class UploadController extends Controller
         $data = [];
 
         if (is_array($request->file('filetoupload'))) {
-            foreach($request->file('filetoupload') as $key=>$file)
+            foreach($request->file('filetoupload') as $key => $file)
             {
                 // $name = time().''.$key.'.'.$file->extension();
                 // $file->move(public_path().'/files/', $name);
@@ -64,10 +64,10 @@ class UploadController extends Controller
             $file = $request->file('filetoupload');
             // $name = time().'.'.$file->extension();
             // $file->move(public_path().'/files/', $name);
-            $name = time().''.$key;
-            $data[] = url('/').$name;
+            $name = time().'';
+            $data[] = url('/').'/api/upload/'.$name;
             Upload::create([
-                'uniqid'    => time().''.$key,
+                'uniqid'    => time().'',
                 'type'      => $file->extension(),
                 'base64'    => base64_encode(file_get_contents($file)),
             ]);

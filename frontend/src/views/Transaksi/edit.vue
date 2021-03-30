@@ -148,6 +148,16 @@
               </base-checkbox>
             </Field>
           </div>
+          <div class="col-md-6 mb-3">
+              <label for="validationCustom01">Foto</label>
+              <input
+                type="file"
+                class="form-control"
+                id="validationCustom03"
+                ref="myFiles"
+                accept="image/*"
+              />
+          </div>
         </div>
       </div>
       <div class="card-footer d-flex justify-content-end border-0">
@@ -211,7 +221,6 @@ export default {
         });
     },
     onSubmit(values) {
-      console.log(values);
       //eksekusi ini kalo berhasil
       this.$swal({
         text: "Apakah kamu yakin ?",
@@ -224,7 +233,36 @@ export default {
         cancelButtonText: "Tidak",
       }).then(async (result) => {
         if (result.value) {
+          const myPromise = new Promise((resolve, reject) => {
+              if (this.$refs.myFiles.files[0]) {
+                var formData = new FormData();
+                this.$store.commit("response_request");
+                formData.append("filetoupload", this.$refs.myFiles.files[0]);
+                axios({
+                  url: "api/upload",
+                  method: "POST",
+                  data: formData
+                })
+                .then(result => {
+                  this.$store.commit("response_success");
+                  resolve(result);
+                })
+                .catch(err => {
+                  this.$store.commit("response_error");
+                  reject(err)
+                });  
+              } else {
+                reject('')
+              }
+          });
+
           var dataSend = values;
+          await myPromise.then(value => { 
+            dataSend.foto = value.data.data[0]
+          }).catch(function() { 
+              dataSend.foto = ''
+          });
+          
           dataSend.id = this.decrypter(this.$route.params.id);
           this.$store.commit("response_request");
           axios({ url: "api/transaction", data: dataSend, method: "put" })

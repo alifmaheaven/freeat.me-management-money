@@ -21,6 +21,7 @@ class Transaction extends Migration
             $table->string('name', 150);
             $table->text('description');
             $table->bigInteger('nominal');
+            $table->text('foto')->nullable();
             $table->date('date')->useCurrent();
             $table->boolean('is_active')->default('1');
             $table->boolean('is_internal')->default('1');

@@ -21,7 +21,7 @@ class TransactionController extends Controller
         //             ->get();
 
         $transaction = DB::table('transaction')
-            ->select('transaction.id','transaction.name', 'transaction.description', 'transaction.nominal', 'transaction.date', 'type.name as typename', 'type.is_minus', 'account.name as accountname','transaction.is_internal')
+            ->select('transaction.id','transaction.name', 'transaction.description', 'transaction.nominal', 'transaction.date','transaction.foto', 'type.name as typename', 'type.is_minus', 'account.name as accountname','transaction.is_internal')
             ->where('transaction.user_id', '=', auth()->user()->id)
             ->where('transaction.is_active', '=', 1)
             ->leftJoin('type', 'transaction.type_id', '=', 'type.id')

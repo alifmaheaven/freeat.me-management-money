@@ -64,6 +64,14 @@
     </Column>
     <Column field="action" header="Aksi">
       <template #body="row">
+        <base-button
+          v-if="row.data['foto']"
+          class="mx-2 my-2"
+          @click="showfoto(row.data)"
+          type="info"
+          size="sm"
+          >Foto</base-button
+        >
         <router-link :to="`/transaksi/edit/${encrypter(row.data.id)}`">
           <base-button class="mx-2 my-2" type="warning" size="sm"
             >Edit</base-button
@@ -167,6 +175,13 @@ export default {
         }
       });
     },
+    showfoto(value){
+      this.$swal({
+        imageUrl: value.foto,
+        imageAlt: 'Custom image',
+        showConfirmButton: false,
+      })
+    }
   },
 };
 </script>
