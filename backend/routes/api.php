@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\UploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,5 +69,12 @@ Route::group(['prefix' => 'dashboard'], function ($router) {
         $router->get('type-nominal-this-month-only', [DashboardController::class, 'typeNominalThisMonthOnly']);
         $router->get('type-nominal-monthly', [DashboardController::class, 'typeNominalMonthly']);
         $router->get('account-nominal-this-month-only', [DashboardController::class, 'accountNominalThisMonthOnly']);
+    });
+});
+
+Route::group(['prefix' => 'upload'], function ($router) {
+    $router->get('/{uniqid}', [UploadController::class, 'show']);
+    Route::group(['middleware' => 'jwt.verify'], function ($router) {
+        $router->post('', [UploadController::class, 'store']);
     });
 });
