@@ -20,19 +20,18 @@
             path: '/transaksi',
           }"
         />
-
-        <sidebar-item
-          :link="{
-            name: 'Tipe transaksi',
-            icon: 'ni ni-ui-04 text-blue',
-            path: '/tipe-transaksi',
-          }"
-        />
         <sidebar-item
           :link="{
             name: 'Akun transkasi',
             icon: 'ni ni-key-25 text-blue',
             path: '/akun-transaksi',
+          }"
+        />
+        <sidebar-item
+          :link="{
+            name: 'Tipe transaksi',
+            icon: 'ni ni-ui-04 text-blue',
+            path: '/tipe-transaksi',
           }"
         />
       </template>

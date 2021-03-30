@@ -185,6 +185,7 @@ export default {
     return {
       type: [],
       account: [],
+      img:''
     };
   },
   created() {
@@ -208,6 +209,7 @@ export default {
         .then((result) => {
           // this.tableData = ;
           this.$refs.myForm.setValues(result.data.data);
+          this.img = result.data.data['foto']
           this.$store.commit("response_success");
         })
         .catch((err) => {
@@ -222,6 +224,7 @@ export default {
     },
     onSubmit(values) {
       //eksekusi ini kalo berhasil
+      var image = this.img;
       this.$swal({
         text: "Apakah kamu yakin ?",
         // text: "You won't be able to revert this!",
@@ -260,7 +263,7 @@ export default {
           await myPromise.then(value => { 
             dataSend.foto = value.data.data[0]
           }).catch(function() { 
-              dataSend.foto = ''
+              dataSend.foto = image;
           });
           
           dataSend.id = this.decrypter(this.$route.params.id);

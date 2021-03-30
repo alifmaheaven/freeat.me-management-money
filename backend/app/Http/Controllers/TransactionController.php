@@ -120,7 +120,7 @@ class TransactionController extends Controller
             return response()->json(['data' => '', 'message' => $temp[0]], 409);
         }
 
-        $data = (object) $request->only(['id','name', 'description','nominal','date', 'account_id', 'type_id', 'is_internal']);
+        $data = (object) $request->only(['id','name', 'description','nominal','date', 'account_id', 'type_id', 'foto', 'is_internal']);
         $data->is_internal = $data->is_internal ? 1 : 0;
 
         transaction::where('id', $data->id)->update((array) $data);
