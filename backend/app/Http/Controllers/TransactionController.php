@@ -66,6 +66,7 @@ class TransactionController extends Controller
 
         $data = (object) $request->all();
         $data->user_id = auth()->user()->id;
+        $data->foto = $data->foto ? $data->foto : '';
         $data->is_active = 1;
         $data->is_internal = $data->is_internal ? 1 : 0;
 
