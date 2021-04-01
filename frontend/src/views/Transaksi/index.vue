@@ -179,7 +179,7 @@ export default {
       this.$swal({
         imageUrl: value.foto,
         imageAlt: 'Custom image',
-        showConfirmButton: false,
+        // showConfirmButton: false,
       })
     }
   },

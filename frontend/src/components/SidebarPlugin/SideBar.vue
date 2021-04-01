@@ -40,7 +40,7 @@
                   <span class="avatar avatar-sm rounded-circle">
                     <img
                       alt="Image placeholder"
-                      src="img/theme/team-1-800x800.jpg"
+                      :src="profileUser.foto ? profileUser.foto : 'img/theme/team-4-800x800.jpg'"
                     />
                   </span>
                 </div>
@@ -160,6 +160,11 @@ export default {
       autoClose: this.autoClose,
     };
   },
+  computed: {
+    profileUser: function () {
+      return this.$store.getters.dataProfileUser;
+    },
+  },
   methods: {
     closeSidebar() {
       this.$sidebar.displaySidebar(false);
@@ -167,34 +172,34 @@ export default {
     showSidebar() {
       this.$sidebar.displaySidebar(true);
     },
+    logout() {
+      this.$swal({
+        title: "Apakah kamu yakin ?",
+        // text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Logout",
+      }).then((result) => {
+        if (result.value) {
+          this.$store.dispatch("logout").then(() => {
+            this.$router.push("/login");
+          });
+          this.$swal({
+            icon: "success",
+            title: "Sukses",
+            text: "Berhasil Logout!",
+            showConfirmButton: false,
+          });
+        }
+      });
+    },
   },
   beforeUnmount() {
     if (this.$sidebar.showSidebar) {
       this.$sidebar.showSidebar = false;
     }
-  },
-  logout() {
-    this.$swal({
-      title: "Apakah kamu yakin ?",
-      // text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Logout",
-    }).then((result) => {
-      if (result.value) {
-        this.$store.dispatch("logout").then(() => {
-          this.$router.push("/login");
-        });
-        this.$swal({
-          icon: "success",
-          title: "Sukses",
-          text: "Berhasil Logout!",
-          showConfirmButton: false,
-        });
-      }
-    });
   },
 };
 </script>
