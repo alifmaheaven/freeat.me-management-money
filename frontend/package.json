@@ -11,6 +11,7 @@
     "@vee-validate/i18n": "^4.1.20",
     "@vee-validate/rules": "^4.1.20",
     "apexcharts": "^3.25.0",
+    "async-waterfall": "^0.1.5",
     "axios": "^0.21.1",
     "bootstrap": "4.6.0",
     "bootstrap-vue": "2.15.0",

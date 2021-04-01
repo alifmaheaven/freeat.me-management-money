@@ -173,6 +173,7 @@
 <script>
 import { Field, Form } from "vee-validate";
 import axios from "@/api";
+import waterfall from 'async-waterfall';
 
 export default {
   name: "login",
@@ -193,34 +194,47 @@ export default {
   },
   methods: {
     initialize() {
-      axios({ url: "api/account", method: "GET" }).then((result) => {
-        this.account = result.data.data;
-        this.$store.commit("response_success");
-      });
-
-      axios({ url: "api/type", method: "GET" }).then((result) => {
-        this.type = result.data.data;
-        this.$store.commit("response_success");
-      });
-
-      var id = this.decrypter(this.$route.params.id);
-      this.$store.commit("response_request");
-      axios({ url: "api/transaction/" + id, method: "GET" })
-        .then((result) => {
-          // this.tableData = ;
-          this.$refs.myForm.setValues(result.data.data);
-          this.img = result.data.data['foto']
-          this.$store.commit("response_success");
-        })
-        .catch((err) => {
-          this.$swal({
-            icon: "error",
-            title: "Maaf",
-            text: err.response.data.message,
-            showConfirmButton: false,
+      var self = this;
+      waterfall([
+        function(callback){
+          axios({ url: "api/account", method: "GET" }).then((result) => {
+            self.account = result.data.data;
+            self.$store.commit("response_success");
+            callback(null);
           });
-          this.$store.commit("response_error");
-        });
+        },
+        function(callback){
+          axios({ url: "api/type", method: "GET" }).then((result) => {
+            self.type = result.data.data;
+            self.$store.commit("response_success");
+            callback(null);
+          });
+        },
+        function(callback){
+          var id = self.decrypter(self.$route.params.id);
+          self.$store.commit("response_request");
+          axios({ url: "api/transaction/" + id, method: "GET" })
+            .then((result) => {
+              // self.tableData = ;
+              self.$refs.myForm.setValues(result.data.data);
+              self.img = result.data.data['foto']
+              self.$store.commit("response_success");
+              callback(null);
+            })
+            .catch((err) => {
+              self.$swal({
+                icon: "error",
+                title: "Maaf",
+                text: err.response.data.message,
+                showConfirmButton: false,
+              });
+              self.$store.commit("response_error");
+            });
+        }
+      ], function () {
+        // console.log(err);
+        // result now equals 'done'
+      });
     },
     onSubmit(values) {
       //eksekusi ini kalo berhasil

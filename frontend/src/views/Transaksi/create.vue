@@ -173,6 +173,7 @@
 <script>
 import { Field, Form } from "vee-validate";
 import axios from "@/api";
+import waterfall from 'async-waterfall';
 
 export default {
   name: "Transaksi",
@@ -205,13 +206,25 @@ export default {
         is_internal: false,
       });
 
-      axios({ url: "api/account", method: "GET" }).then((result) => {
-        this.account = result.data.data;
-        this.$store.commit("response_success");
-      });
-      axios({ url: "api/type", method: "GET" }).then((result) => {
-        this.type = result.data.data;
-        this.$store.commit("response_success");
+      var self = this;
+      waterfall([
+        function(callback){
+          axios({ url: "api/account", method: "GET" }).then((result) => {
+            self.account = result.data.data;
+            self.$store.commit("response_success");
+            callback(null);
+          });
+        },
+        function(callback){
+          axios({ url: "api/type", method: "GET" }).then((result) => {
+            self.type = result.data.data;
+            self.$store.commit("response_success");
+            callback(null);
+          });
+        },
+      ], function () {
+        // console.log(err);
+        // result now equals 'done'
       });
     },
     onSubmit(values) {
