@@ -5,10 +5,10 @@
         <div class="copyright text-center text-lg-left text-muted">
           © {{ year }}
           <a
-            href="https://www.creative-tim.com"
+            href="https://freeat.me/"
             class="font-weight-bold ml-1"
             target="_blank"
-            >Creative Tim</a
+            >Freeat.me</a
           >
         </div>
       </div>
@@ -16,7 +16,7 @@
         <ul
           class="nav nav-footer justify-content-center justify-content-lg-end"
         >
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a
               href="https://www.creative-tim.com"
               class="nav-link"
@@ -31,13 +31,13 @@
               target="_blank"
               >About Us</a
             >
-          </li>
+          </li> -->
           <li class="nav-item">
             <a
-              href="https://www.creative-tim.com/blog"
+              href="https://saweria.co/kelap"
               class="nav-link"
               target="_blank"
-              >Blog</a
+              >Donate</a
             >
           </li>
           <li class="nav-item">
