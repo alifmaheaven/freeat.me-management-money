@@ -18,7 +18,7 @@
             <p class="text-white mt-0 mb-5">
               Aplikasi ini dibuat khusus untuk membantumu dalam mengelola keuangan, enjoy :)
             </p>
-            <a href="#!" class="btn btn-info">Edit profile</a>
+            <!-- <a href="#!" class="btn btn-info">Edit profile</a> -->
           </div>
         </div>
       </div>
