@@ -14,7 +14,7 @@
 
       <slot name="mobile-right">
         <ul class="nav align-items-center d-md-none">
-          <base-dropdown class="nav-item" position="right">
+          <!-- <base-dropdown class="nav-item" position="right">
             <template v-slot:title>
               <a
                 class="nav-link nav-link-icon"
@@ -32,7 +32,7 @@
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>
-          </base-dropdown>
+          </base-dropdown> -->
           <base-dropdown class="nav-item" position="right">
             <template v-slot:title>
               <a class="nav-link" href="#" role="button">
