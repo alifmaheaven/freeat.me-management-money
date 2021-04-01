@@ -31,6 +31,7 @@ Route::group(['prefix' => 'auth'], function ($router) {
         $router->post('me', [AuthController::class, 'me']);
         $router->post('varifyuser', [AuthController::class, 'verifyUser']);
         $router->post('changepassword', [AuthController::class, 'changePassword']);
+        $router->put('changeprofile', [AuthController::class, 'changeProfile']);
     });
 });
 

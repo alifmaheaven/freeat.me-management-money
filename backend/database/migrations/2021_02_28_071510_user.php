@@ -17,6 +17,7 @@ class User extends Migration
             $table->id();
             $table->string('name', 100);
             $table->string('email',150);
+            $table->string('foto',250);
             $table->string('username',100);
             $table->string('password',250);
             $table->boolean('first_login');

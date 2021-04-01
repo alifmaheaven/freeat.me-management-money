@@ -84,6 +84,7 @@ class AuthController extends Controller
             'username'  => str_replace("@gmail.com", "", $response->email),
             'password'  => '',
             'first_login' => 0,
+            'foto' => '',
             'is_active' => 1
         );
 
@@ -118,6 +119,7 @@ class AuthController extends Controller
             $user->username = $request->input('username');
             $plainPassword = $request->input('password');
             $user->password = app('hash')->make($plainPassword);
+            $user->foto = '';
             $user->first_login = 1;
             $user->is_active = 0;
             $user->save();
@@ -179,6 +181,29 @@ class AuthController extends Controller
         $updateUser->save();
         auth()->logout();
         return response()->json(['data' => $user, 'message' => 'success change password! please login again!'], 200);
+    }
+
+    public function changeProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+                'name'      => 'required|string',
+                'email'     => 'required|unique:users,email,'.auth()->user()->id,
+                'username'  => 'required|unique:users,email,'.auth()->user()->id,
+        ]);
+        $temp = $validator->errors()->all();
+        if ($validator->fails()) {
+            return response()->json(['data' => '', 'message' => $temp[0]], 409);
+        }
+
+        $user = auth()->user();
+        $updateUser= User::find($user['id']);
+        $updateUser->name = $request->input('name');
+        $updateUser->email = $request->input('email');
+        $updateUser->username = $request->input('username');
+        $updateUser->foto = $request->input('foto');
+        $updateUser->save();
+
+        return response()->json(['data' => $user, 'message' => 'Success change profile!'], 200);
     }
 
     /**
