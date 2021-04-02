@@ -108,7 +108,7 @@ class UploadController extends Controller
 
             file_put_contents($path, $dataImage);
 
-            $img = Image::make($path)->resize(200, null,function ($constraint) {
+            $img = Image::make($path)->resize(400, null,function ($constraint) {
                 $constraint->aspectRatio();
             });
             return $img->response($data->type);
