@@ -108,6 +108,7 @@ export default {
     apexchart: VueApexCharts,
   },
   data() {
+    var self = this
     return {
       chartOptions: {
         chart: {
@@ -125,28 +126,32 @@ export default {
         yaxis: {
           labels: {
             formatter: function (val) {
-              var prefix = "Rp.";
-              var number_string = val.toString(),
-                split = number_string.split(","),
-                sisa = split[0].length % 3,
-                rupiah = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-              // tambahkan titik jika yang di input sudah menjadi angka ribuan
-              if (ribuan) {
-                var separator = sisa ? "." : "";
-                rupiah += separator + ribuan.join(".");
+              var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+              if (isMobile) {
+                return self.reformatCountToKNumber(val);
+              } else {
+                return self.reformatToRupiah(val);
               }
-
-              rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
-              return prefix == undefined
-                ? rupiah
-                : rupiah
-                ? "Rp. " + rupiah
-                : "";
             },
           },
         },
+        dataLabels: {
+          formatter: function (val) {
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+              return self.reformatCountToKNumber(val);
+            } else {
+              return self.reformatToRupiah(val);
+            }
+          },
+        },
+        tooltip: {
+          y: {
+            formatter: function(value, ) {
+              return self.reformatToRupiah(value);
+            }
+          }
+        }
       },
       series: [],
       akun: [],
