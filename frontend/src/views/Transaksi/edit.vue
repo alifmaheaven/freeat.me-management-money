@@ -196,6 +196,7 @@ export default {
       waterfall(
         [
           function (callback) {
+            self.$store.commit("response_request");
             axios({ url: "api/account", method: "GET" }).then((result) => {
               self.account = result.data.data;
               self.$store.commit("response_success");
@@ -203,6 +204,7 @@ export default {
             });
           },
           function (callback) {
+            self.$store.commit("response_request");
             axios({ url: "api/type", method: "GET" }).then((result) => {
               self.type = result.data.data;
               self.$store.commit("response_success");
