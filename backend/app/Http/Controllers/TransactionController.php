@@ -123,6 +123,7 @@ class TransactionController extends Controller
 
         $data = (object) $request->only(['id','name', 'description','nominal','date', 'account_id', 'type_id', 'foto', 'is_internal']);
         $data->is_internal = $data->is_internal ? 1 : 0;
+        $data->foto = $data->foto ? $data->foto : '';
 
         transaction::where('id', $data->id)->update((array) $data);
 
