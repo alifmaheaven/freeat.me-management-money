@@ -6,6 +6,8 @@ use App\Models\Upload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class UploadController extends Controller
 {
@@ -106,8 +108,12 @@ class UploadController extends Controller
 
             file_put_contents($path, $dataImage);
 
+            $img = Image::make($path)->resize(200, null,function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            return $img->response($data->type);
             //serve the image
-            return  response()->file($path);
+            // return  response()->file($path);
             // return response()->json([ 'data'=> $fileList, 'message' => 'success get data'], 200);
         } else {
             return abort('403');
