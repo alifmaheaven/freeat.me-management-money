@@ -108,7 +108,7 @@ export default {
     apexchart: VueApexCharts,
   },
   data() {
-    var self = this
+    var self = this;
     return {
       chartOptions: {
         chart: {
@@ -126,7 +126,9 @@ export default {
         yaxis: {
           labels: {
             formatter: function (val) {
-              var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+              var isMobile = /iPhone|iPad|iPod|Android/i.test(
+                navigator.userAgent
+              );
               if (isMobile) {
                 return self.reformatCountToKNumber(val);
               } else {
@@ -137,7 +139,9 @@ export default {
         },
         dataLabels: {
           formatter: function (val) {
-            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(
+              navigator.userAgent
+            );
             if (isMobile) {
               return self.reformatCountToKNumber(val);
             } else {
@@ -147,11 +151,11 @@ export default {
         },
         tooltip: {
           y: {
-            formatter: function(value, ) {
+            formatter: function (value) {
               return self.reformatToRupiah(value);
-            }
-          }
-        }
+            },
+          },
+        },
       },
       series: [],
       akun: [],

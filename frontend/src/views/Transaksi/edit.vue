@@ -142,21 +142,19 @@
               :value="true"
             >
               <base-checkbox v-bind="field" class="custom-control-alternative">
-                <span class="text-muted"
-                  >apakah ini arus kas internal?</span
-                >
+                <span class="text-muted">apakah ini arus kas internal?</span>
               </base-checkbox>
             </Field>
           </div>
           <div class="col-md-6 mb-3">
-              <label for="validationCustom01">Foto</label>
-              <input
-                type="file"
-                class="form-control"
-                id="validationCustom03"
-                ref="myFiles"
-                accept="image/*"
-              />
+            <label for="validationCustom01">Foto</label>
+            <input
+              type="file"
+              class="form-control"
+              id="validationCustom03"
+              ref="myFiles"
+              accept="image/*"
+            />
           </div>
         </div>
       </div>
@@ -173,7 +171,7 @@
 <script>
 import { Field, Form } from "vee-validate";
 import axios from "@/api";
-import waterfall from 'async-waterfall';
+import waterfall from "async-waterfall";
 
 export default {
   name: "login",
@@ -186,7 +184,7 @@ export default {
     return {
       type: [],
       account: [],
-      img:''
+      img: "",
     };
   },
   created() {
@@ -195,46 +193,49 @@ export default {
   methods: {
     initialize() {
       var self = this;
-      waterfall([
-        function(callback){
-          axios({ url: "api/account", method: "GET" }).then((result) => {
-            self.account = result.data.data;
-            self.$store.commit("response_success");
-            callback(null);
-          });
-        },
-        function(callback){
-          axios({ url: "api/type", method: "GET" }).then((result) => {
-            self.type = result.data.data;
-            self.$store.commit("response_success");
-            callback(null);
-          });
-        },
-        function(callback){
-          var id = self.decrypter(self.$route.params.id);
-          self.$store.commit("response_request");
-          axios({ url: "api/transaction/" + id, method: "GET" })
-            .then((result) => {
-              // self.tableData = ;
-              self.$refs.myForm.setValues(result.data.data);
-              self.img = result.data.data['foto']
+      waterfall(
+        [
+          function (callback) {
+            axios({ url: "api/account", method: "GET" }).then((result) => {
+              self.account = result.data.data;
               self.$store.commit("response_success");
               callback(null);
-            })
-            .catch((err) => {
-              self.$swal({
-                icon: "error",
-                title: "Maaf",
-                text: err.response.data.message,
-                showConfirmButton: false,
-              });
-              self.$store.commit("response_error");
             });
+          },
+          function (callback) {
+            axios({ url: "api/type", method: "GET" }).then((result) => {
+              self.type = result.data.data;
+              self.$store.commit("response_success");
+              callback(null);
+            });
+          },
+          function (callback) {
+            var id = self.decrypter(self.$route.params.id);
+            self.$store.commit("response_request");
+            axios({ url: "api/transaction/" + id, method: "GET" })
+              .then((result) => {
+                // self.tableData = ;
+                self.$refs.myForm.setValues(result.data.data);
+                self.img = result.data.data["foto"];
+                self.$store.commit("response_success");
+                callback(null);
+              })
+              .catch((err) => {
+                self.$swal({
+                  icon: "error",
+                  title: "Maaf",
+                  text: err.response.data.message,
+                  showConfirmButton: false,
+                });
+                self.$store.commit("response_error");
+              });
+          },
+        ],
+        function () {
+          // console.log(err);
+          // result now equals 'done'
         }
-      ], function () {
-        // console.log(err);
-        // result now equals 'done'
-      });
+      );
     },
     onSubmit(values) {
       //eksekusi ini kalo berhasil
@@ -251,35 +252,37 @@ export default {
       }).then(async (result) => {
         if (result.value) {
           const myPromise = new Promise((resolve, reject) => {
-              if (this.$refs.myFiles.files[0]) {
-                var formData = new FormData();
-                this.$store.commit("response_request");
-                formData.append("filetoupload", this.$refs.myFiles.files[0]);
-                axios({
-                  url: "api/upload",
-                  method: "POST",
-                  data: formData
-                })
-                .then(result => {
+            if (this.$refs.myFiles.files[0]) {
+              var formData = new FormData();
+              this.$store.commit("response_request");
+              formData.append("filetoupload", this.$refs.myFiles.files[0]);
+              axios({
+                url: "api/upload",
+                method: "POST",
+                data: formData,
+              })
+                .then((result) => {
                   this.$store.commit("response_success");
                   resolve(result);
                 })
-                .catch(err => {
+                .catch((err) => {
                   this.$store.commit("response_error");
-                  reject(err)
-                });  
-              } else {
-                reject('')
-              }
+                  reject(err);
+                });
+            } else {
+              reject("");
+            }
           });
 
           var dataSend = values;
-          await myPromise.then(value => { 
-            dataSend.foto = value.data.data[0]
-          }).catch(function() { 
+          await myPromise
+            .then((value) => {
+              dataSend.foto = value.data.data[0];
+            })
+            .catch(function () {
               dataSend.foto = image;
-          });
-          
+            });
+
           dataSend.id = this.decrypter(this.$route.params.id);
           this.$store.commit("response_request");
           axios({ url: "api/transaction", data: dataSend, method: "put" })

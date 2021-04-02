@@ -14,9 +14,10 @@
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello {{profileUser.name}}</h1>
+            <h1 class="display-2 text-white">Hello {{ profileUser.name }}</h1>
             <p class="text-white mt-0 mb-5">
-              Aplikasi ini dibuat khusus untuk membantumu dalam mengelola keuangan, enjoy :)
+              Aplikasi ini dibuat khusus untuk membantumu dalam mengelola
+              keuangan, enjoy :)
             </p>
             <!-- <a href="#!" class="btn btn-info">Edit profile</a> -->
           </div>
@@ -117,75 +118,74 @@
               <h6 class="heading-small text-muted mb-4">User information</h6>
               <div class="pl-lg-4">
                 <Form @submit="onSubmit" ref="myForm">
-                <div class="card-body">
-                  <div class="row">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6 mb-3">
+                        <Field
+                          name="name"
+                          rules="required"
+                          v-slot="{ field, errorMessage }"
+                        >
+                          <label for="validationCustom01">Nama</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            :class="{ 'is-invalid': !!errorMessage }"
+                            id="validationCustom03"
+                            v-bind="field"
+                            placeholder="Nama"
+                          />
+                          <div class="invalid-feedback">
+                            {{ errorMessage }}
+                          </div>
+                        </Field>
+                      </div>
 
-                    <div class="col-md-6 mb-3">
-                      <Field
-                        name="name"
-                        rules="required"
-                        v-slot="{ field, errorMessage }"
-                      >
-                        <label for="validationCustom01">Nama</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          :class="{ 'is-invalid': !!errorMessage }"
-                          id="validationCustom03"
-                          v-bind="field"
-                          placeholder="Nama"
-                        />
-                        <div class="invalid-feedback">
-                          {{ errorMessage }}
-                        </div>
-                      </Field>
-                    </div>
+                      <div class="col-md-6 mb-3">
+                        <Field
+                          name="username"
+                          rules="required"
+                          v-slot="{ field, errorMessage }"
+                        >
+                          <label for="validationCustom01">Username</label>
+                          <input
+                            type="text"
+                            disabled
+                            class="form-control"
+                            :class="{ 'is-invalid': !!errorMessage }"
+                            id="validationCustom03"
+                            v-bind="field"
+                            placeholder="Username"
+                          />
+                          <div class="invalid-feedback">
+                            {{ errorMessage }}
+                          </div>
+                        </Field>
+                      </div>
 
-                    <div class="col-md-6 mb-3">
-                      <Field
-                        name="username"
-                        rules="required"
-                        v-slot="{ field, errorMessage }"
-                      >
-                        <label for="validationCustom01">Username</label>
-                        <input
-                          type="text"
-                          disabled
-                          class="form-control"
-                          :class="{ 'is-invalid': !!errorMessage }"
-                          id="validationCustom03"
-                          v-bind="field"
-                          placeholder="Username"
-                        />
-                        <div class="invalid-feedback">
-                          {{ errorMessage }}
-                        </div>
-                      </Field>
-                    </div>
+                      <div class="col-md-6 mb-3">
+                        <Field
+                          name="email"
+                          rules="required"
+                          v-slot="{ field, errorMessage }"
+                        >
+                          <label for="validationCustom01">Email</label>
+                          <input
+                            type="text"
+                            disabled
+                            class="form-control"
+                            :class="{ 'is-invalid': !!errorMessage }"
+                            id="validationCustom03"
+                            v-bind="field"
+                            placeholder="Email"
+                          />
+                          <div class="invalid-feedback">
+                            {{ errorMessage }}
+                          </div>
+                        </Field>
+                      </div>
 
-                    <div class="col-md-6 mb-3">
-                      <Field
-                        name="email"
-                        rules="required"
-                        v-slot="{ field, errorMessage }"
-                      >
-                        <label for="validationCustom01">Email</label>
-                        <input
-                          type="text"
-                          disabled
-                          class="form-control"
-                          :class="{ 'is-invalid': !!errorMessage }"
-                          id="validationCustom03"
-                          v-bind="field"
-                          placeholder="Email"
-                        />
-                        <div class="invalid-feedback">
-                          {{ errorMessage }}
-                        </div>
-                      </Field>
-                    </div>
-                    
-                    <div class="col-md-6 mb-3">
+                      <div class="col-md-6 mb-3">
                         <label for="validationCustom01">Foto</label>
                         <input
                           type="file"
@@ -194,17 +194,18 @@
                           ref="myFiles"
                           accept="image/*"
                         />
+                      </div>
                     </div>
-
                   </div>
-                </div>
-                <div class="d-flex justify-content-end border-0">
-                  <!-- <button @click="$router.go(-1)" type="button" class="btn btn-secondary">
+                  <div class="d-flex justify-content-end border-0">
+                    <!-- <button @click="$router.go(-1)" type="button" class="btn btn-secondary">
                     Kembali
                   </button> -->
-                  <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-              </Form>
+                    <button type="submit" class="btn btn-primary">
+                      Simpan
+                    </button>
+                  </div>
+                </Form>
               </div>
               <!-- <hr class="my-4" /> -->
             </form>
@@ -227,7 +228,7 @@ export default {
   },
   data() {
     return {
-      img:'',
+      img: "",
     };
   },
   computed: {
@@ -244,7 +245,7 @@ export default {
         .then((result) => {
           // this.tableData = ;
           this.$refs.myForm.setValues(result.data.data);
-          this.img = result.data.data['foto'];
+          this.img = result.data.data["foto"];
           this.$store.commit("response_success");
         })
         .catch((err) => {
@@ -272,38 +273,44 @@ export default {
       }).then(async (result) => {
         if (result.value) {
           const myPromise = new Promise((resolve, reject) => {
-              if (this.$refs.myFiles.files[0]) {
-                var formData = new FormData();
-                this.$store.commit("response_request");
-                formData.append("filetoupload", this.$refs.myFiles.files[0]);
-                axios({
-                  url: "api/upload",
-                  method: "POST",
-                  data: formData
-                })
-                .then(result => {
+            if (this.$refs.myFiles.files[0]) {
+              var formData = new FormData();
+              this.$store.commit("response_request");
+              formData.append("filetoupload", this.$refs.myFiles.files[0]);
+              axios({
+                url: "api/upload",
+                method: "POST",
+                data: formData,
+              })
+                .then((result) => {
                   this.$store.commit("response_success");
                   resolve(result);
                 })
-                .catch(err => {
+                .catch((err) => {
                   this.$store.commit("response_error");
-                  reject(err)
-                });  
-              } else {
-                reject('')
-              }
+                  reject(err);
+                });
+            } else {
+              reject("");
+            }
           });
 
           var dataSend = values;
-          await myPromise.then(value => { 
-            dataSend.foto = value.data.data[0]
-          }).catch(function() { 
+          await myPromise
+            .then((value) => {
+              dataSend.foto = value.data.data[0];
+            })
+            .catch(function () {
               dataSend.foto = image;
-          });
-          
+            });
+
           dataSend.id = this.$store.getters.dataProfileUser.id;
           this.$store.commit("response_request");
-          axios({ url: "api/auth/changeprofile", data: dataSend, method: "put" })
+          axios({
+            url: "api/auth/changeprofile",
+            data: dataSend,
+            method: "put",
+          })
             .then((result) => {
               this.$swal({
                 icon: "success",

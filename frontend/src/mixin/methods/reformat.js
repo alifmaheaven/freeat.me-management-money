@@ -128,20 +128,20 @@ var define = {
     }
   },
   reformatCountToKNumber: function (value) {
-      var num = parseInt(value);
-      if (num >= 1000000000) {
-          return (num / 1000000000000).toFixed(1).replace(/\.0$/, '') + ' Triliun';
-      }
-      if (num >= 1000000000) {
-         return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + ' Miliar';
-      }
-      if (num >= 1000000) {
-         return (num / 1000000).toFixed(1).replace(/\.0$/, '') + ' Juta';
-      }
-      if (num >= 1000) {
-         return (num / 1000).toFixed(1).replace(/\.0$/, '') + ' Ribu';
-      }
-      return num;
+    var num = parseInt(value);
+    if (num >= 1000000000) {
+      return (num / 1000000000000).toFixed(1).replace(/\.0$/, "") + " Triliun";
+    }
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + " Miliar";
+    }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + " Juta";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, "") + " Ribu";
+    }
+    return num;
   },
   reformatToRupiah: function (angka) {
     var prefix = "Rp.";

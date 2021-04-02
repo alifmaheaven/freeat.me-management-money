@@ -33,10 +33,7 @@
             >
           </li> -->
           <li class="nav-item">
-            <a
-              href="https://saweria.co/kelap"
-              class="nav-link"
-              target="_blank"
+            <a href="https://saweria.co/kelap" class="nav-link" target="_blank"
               >Donate</a
             >
           </li>

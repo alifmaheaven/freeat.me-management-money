@@ -9,7 +9,7 @@
         <span class="navbar-toggler-icon"></span>
       </navbar-toggle-button>
       <router-link class="navbar-brand" to="/">
-        <img :src="env+logo" class="navbar-brand-img" alt="..." />
+        <img :src="env + logo" class="navbar-brand-img" alt="..." />
       </router-link>
 
       <slot name="mobile-right">
@@ -40,7 +40,11 @@
                   <span class="avatar avatar-sm rounded-circle">
                     <img
                       alt="Image placeholder"
-                      :src="profileUser.foto ? profileUser.foto : 'img/theme/team-4-800x800.jpg'"
+                      :src="
+                        profileUser.foto
+                          ? profileUser.foto
+                          : 'img/theme/team-4-800x800.jpg'
+                      "
                     />
                   </span>
                 </div>
@@ -84,7 +88,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
-                <img :src="env+logo" />
+                <img :src="env + logo" />
               </router-link>
             </div>
             <div class="col-6 collapse-close">

@@ -15,7 +15,7 @@
             </a> -->
             <a @click="GooglesignIn()" class="btn btn-neutral btn-icon">
               <span class="btn-inner--icon"
-                ><img :src="env+'img/icons/common/google.svg'"
+                ><img :src="env + 'img/icons/common/google.svg'"
               /></span>
               <span class="btn-inner--text">Google</span>
             </a>
@@ -105,8 +105,7 @@ export default {
   data() {
     return {};
   },
-  created(){
-  },
+  created() {},
   methods: {
     onSubmit(values) {
       let username = values.email;

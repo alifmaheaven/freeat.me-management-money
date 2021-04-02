@@ -3,7 +3,10 @@ import store from "@/store/index";
 import router from "@/router";
 
 const ajax = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? window.location.origin : process.env.VUE_APP_URL_API,
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? window.location.origin
+      : process.env.VUE_APP_URL_API,
   // baseURL: window.location.origin,
   //     headers: {
   //         'Content-Type': 'application/json',

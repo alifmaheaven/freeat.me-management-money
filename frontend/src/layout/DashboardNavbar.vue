@@ -26,7 +26,11 @@
               <span class="avatar avatar-sm rounded-circle">
                 <img
                   alt="Image placeholder"
-                  :src="profileUser.foto ? profileUser.foto : 'img/theme/team-4-800x800.jpg'"
+                  :src="
+                    profileUser.foto
+                      ? profileUser.foto
+                      : 'img/theme/team-4-800x800.jpg'
+                  "
                 />
               </span>
               <div class="media-body ml-2 d-none d-lg-block">

@@ -142,21 +142,19 @@
               :value="true"
             >
               <base-checkbox v-bind="field" class="custom-control-alternative">
-                <span class="text-muted"
-                  >apakah ini arus kas internal?</span
-                >
+                <span class="text-muted">apakah ini arus kas internal?</span>
               </base-checkbox>
             </Field>
           </div>
           <div class="col-md-6 mb-3">
-              <label for="validationCustom01">Foto</label>
-              <input
-                type="file"
-                class="form-control"
-                id="validationCustom03"
-                ref="myFiles"
-                accept="image/*"
-              />
+            <label for="validationCustom01">Foto</label>
+            <input
+              type="file"
+              class="form-control"
+              id="validationCustom03"
+              ref="myFiles"
+              accept="image/*"
+            />
           </div>
         </div>
       </div>
@@ -173,7 +171,7 @@
 <script>
 import { Field, Form } from "vee-validate";
 import axios from "@/api";
-import waterfall from 'async-waterfall';
+import waterfall from "async-waterfall";
 
 export default {
   name: "Transaksi",
@@ -207,25 +205,28 @@ export default {
       });
 
       var self = this;
-      waterfall([
-        function(callback){
-          axios({ url: "api/account", method: "GET" }).then((result) => {
-            self.account = result.data.data;
-            self.$store.commit("response_success");
-            callback(null);
-          });
-        },
-        function(callback){
-          axios({ url: "api/type", method: "GET" }).then((result) => {
-            self.type = result.data.data;
-            self.$store.commit("response_success");
-            callback(null);
-          });
-        },
-      ], function () {
-        // console.log(err);
-        // result now equals 'done'
-      });
+      waterfall(
+        [
+          function (callback) {
+            axios({ url: "api/account", method: "GET" }).then((result) => {
+              self.account = result.data.data;
+              self.$store.commit("response_success");
+              callback(null);
+            });
+          },
+          function (callback) {
+            axios({ url: "api/type", method: "GET" }).then((result) => {
+              self.type = result.data.data;
+              self.$store.commit("response_success");
+              callback(null);
+            });
+          },
+        ],
+        function () {
+          // console.log(err);
+          // result now equals 'done'
+        }
+      );
     },
     onSubmit(values) {
       console.log(values);
@@ -242,35 +243,37 @@ export default {
       }).then(async (result) => {
         if (result.value) {
           const myPromise = new Promise((resolve, reject) => {
-              if (this.$refs.myFiles.files[0]) {
-                var formData = new FormData();
-                this.$store.commit("response_request");
-                formData.append("filetoupload", this.$refs.myFiles.files[0]);
-                axios({
-                  url: "api/upload",
-                  method: "POST",
-                  data: formData
-                })
-                .then(result => {
+            if (this.$refs.myFiles.files[0]) {
+              var formData = new FormData();
+              this.$store.commit("response_request");
+              formData.append("filetoupload", this.$refs.myFiles.files[0]);
+              axios({
+                url: "api/upload",
+                method: "POST",
+                data: formData,
+              })
+                .then((result) => {
                   this.$store.commit("response_success");
                   resolve(result);
                 })
-                .catch(err => {
+                .catch((err) => {
                   this.$store.commit("response_error");
-                  reject(err)
-                });  
-              } else {
-                reject('')
-              }
+                  reject(err);
+                });
+            } else {
+              reject("");
+            }
           });
 
           var dataSend = values;
-          await myPromise.then(value => { 
-            dataSend.foto = value.data.data[0]
-          }).catch(function() { 
-              dataSend.foto = ''
-          });
-          
+          await myPromise
+            .then((value) => {
+              dataSend.foto = value.data.data[0];
+            })
+            .catch(function () {
+              dataSend.foto = "";
+            });
+
           this.$store.commit("response_request");
           axios({ url: "api/transaction", data: dataSend, method: "POST" })
             .then((result) => {

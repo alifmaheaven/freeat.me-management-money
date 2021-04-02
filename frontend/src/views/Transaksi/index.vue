@@ -40,7 +40,15 @@
     <Column field="name" header="Name" sortable="true">
       <template #body="row">
         <span>
-          {{ row.data.name }} <i v-if="row.data.is_internal" class="pi pi-info-circle" style="fontSize: 1rem;color: rgb(94 114 228);" v-tooltip.right="'Arus kas internal tidak akan ter record pada dashboard'"></i>
+          {{ row.data.name }}
+          <i
+            v-if="row.data.is_internal"
+            class="pi pi-info-circle"
+            style="fontsize: 1rem; color: rgb(94 114 228)"
+            v-tooltip.right="
+              'Arus kas internal tidak akan ter record pada dashboard'
+            "
+          ></i>
         </span>
       </template>
     </Column>
@@ -95,7 +103,7 @@ import Column from "primevue/column";
 // import Button from 'primevue/button';
 import InputText from "primevue/inputtext";
 import { FilterMatchMode } from "primevue/api";
-import Tooltip from 'primevue/tooltip';
+import Tooltip from "primevue/tooltip";
 
 export default {
   name: "projects-table",
@@ -107,7 +115,7 @@ export default {
     InputText,
   },
   directives: {
-      'tooltip': Tooltip
+    tooltip: Tooltip,
   },
   data() {
     return {
@@ -175,13 +183,13 @@ export default {
         }
       });
     },
-    showfoto(value){
+    showfoto(value) {
       this.$swal({
         imageUrl: value.foto,
-        imageAlt: 'Custom image',
+        imageAlt: "Custom image",
         // showConfirmButton: false,
-      })
-    }
+      });
+    },
   },
 };
 </script>
